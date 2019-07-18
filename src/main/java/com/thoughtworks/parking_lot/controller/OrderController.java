@@ -19,6 +19,7 @@ public class OrderController {
         //orderRepository.deleteAll();
         long openOrderCount = orderRepository.findAll().stream().filter(i -> i.getState().toUpperCase() == "OPEN").count();
         if(ParkingLotController.parkingLotRepository.findById(1L).get().getCapacity() - openOrderCount <= 0){
+            System.out.println("This parking is full");
             return null;
         }
         Order order = new Order();
@@ -40,7 +41,7 @@ public class OrderController {
             if(order.getCarId() == carId)
                 orderId = order.getId();
         }
-        
+
         orderRepository.findById(orderId).get().setState("CLOSE");
         orderRepository.findById(orderId).get().setEndTime(Long.toString(System.currentTimeMillis()));
         return orderRepository.findAll();

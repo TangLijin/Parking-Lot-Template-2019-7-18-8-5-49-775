@@ -70,6 +70,7 @@ public class ParkingLot {
 
     @Override
     public String toString() {
-        return this.id + " " + this.name + " " + this.capacity + " " +this.position;
+        return "id:" + this.id + "\n" + "name:" + this.name + "\n" + "capacity:"
+                + this.capacity + "\n" + "position:" + this.position;
     }
 }

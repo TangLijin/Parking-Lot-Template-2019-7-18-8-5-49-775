@@ -20,10 +20,11 @@ public class ParkingLotController {
 
 
     @GetMapping
-    public void init(){
+    public List<ParkingLot> init(){
         parkingLotRepository.deleteAll();
         parkingLotRepository.saveAll(ParkingLot.createParkingLots());
         parkingLotRepository.findAll().stream().forEach(i -> System.out.println(i.toString()));
+        return parkingLotRepository.findAll();
     }
 
     @PostMapping
@@ -42,5 +43,19 @@ public class ParkingLotController {
         //return parkingLotRepository.findAll();
     }
 
+//
+
+    @GetMapping("/{id}")
+    public String  showParkingLotsAccodingToPage(@PathVariable Long id){
+        return parkingLotRepository.findById(id).get().toString();
+        //return parkingLotRepository.findAll();
+    }
+
+    @PutMapping("/{id}")
+    public List<ParkingLot>  updateParkingLot(@PathVariable Long id,@RequestParam Long newCapacity){
+        parkingLotRepository.findById(id).get().setCapacity(newCapacity);
+        return parkingLotRepository.findAll();
+        //return parkingLotRepository.findAll();
+    }
 
 }

@@ -3,10 +3,9 @@ package com.thoughtworks.parking_lot.controller;
 import com.thoughtworks.parking_lot.model.Order;
 import com.thoughtworks.parking_lot.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -31,6 +30,20 @@ public class OrderController {
         orderRepository.saveAndFlush(order);
         orderRepository.findAll().stream().forEach(i -> System.out.println(i.toString()));
         return orderRepository.findById(order.getId()).get();
+    }
+
+    @PutMapping("/1/{carId}")
+    public List<Order> closeOrder(@PathVariable String carId){
+        //orderRepository.deleteAll();
+        long orderId = 0;
+        for(Order order: orderRepository.findAll()){
+            if(order.getCarId() == carId)
+                orderId = order.getId();
+        }
+        
+        orderRepository.findById(orderId).get().setState("CLOSE");
+        orderRepository.findById(orderId).get().setEndTime(Long.toString(System.currentTimeMillis()));
+        return orderRepository.findAll();
     }
 
 

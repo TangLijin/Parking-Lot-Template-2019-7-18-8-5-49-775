@@ -18,7 +18,8 @@ public class OrderController {
     @PostMapping("/1/{carId}")
     public Order createOrder(@PathVariable String carId){
         //orderRepository.deleteAll();
-        if(ParkingLotController.parkingLotRepository.findById(1L).get().getCapacity() - orderRepository.count() <= 0){
+        long openOrderCount = orderRepository.findAll().stream().filter(i -> i.getState().toUpperCase() == "OPEN").count();
+        if(ParkingLotController.parkingLotRepository.findById(1L).get().getCapacity() - openOrderCount <= 0){
             return null;
         }
         Order order = new Order();

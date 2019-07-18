@@ -3,23 +3,27 @@ package com.thoughtworks.parking_lot.model;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 public class ParkingLot {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true)
+    private Long id;
+
+    @Column(unique = true)
     private String name;
 
-    @Length(min = 0)
-    private int capacity;
+    @Min(value = 0)
+    private Long capacity;
 
     private String position;
 
     public ParkingLot() {
     }
 
-    public ParkingLot(String name, @Length(min = 0) int capacity, String position) {
+    public ParkingLot(String name, @Length(min = 0) Long capacity, String position) {
         this.name = name;
         this.capacity = capacity;
         this.position = position;
@@ -33,11 +37,11 @@ public class ParkingLot {
         this.name = name;
     }
 
-    public int getCapacity() {
+    public Long getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Long capacity) {
         this.capacity = capacity;
     }
 
@@ -47,5 +51,9 @@ public class ParkingLot {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -1,0 +1,12 @@
+
+
+logging.file: logs/application.log
+logging:
+  level:
+      org:
+        springframework:
+          web: DEBUG
+        hibernate: ERROR
+
+server:
+  port: 8980

@@ -13,7 +13,7 @@ import java.util.List;
 public class ParkingLotController {
 
     @Autowired
-    private ParkingLotRepository parkingLotRepository;
+    static protected ParkingLotRepository parkingLotRepository;
 
     private List<ParkingLot> parkingLots ;
 

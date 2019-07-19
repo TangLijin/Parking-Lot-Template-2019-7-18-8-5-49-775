@@ -53,7 +53,10 @@ public class ParkingLotController {
 
     @PutMapping("/{id}")
     public List<ParkingLot>  updateParkingLot(@PathVariable Long id,@RequestParam Long newCapacity){
-        parkingLotRepository.findById(id).get().setCapacity(newCapacity);
+        //parkingLotRepository.findById(id).get().setCapacity(newCapacity);
+        ParkingLot p = parkingLotRepository.findById(id).get();
+        p.setCapacity(newCapacity);
+        parkingLotRepository.saveAndFlush(p);
         return parkingLotRepository.findAll();
         //return parkingLotRepository.findAll();
     }

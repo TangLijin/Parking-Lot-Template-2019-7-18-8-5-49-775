@@ -41,9 +41,9 @@ public class OrderController {
             if(order.getCarId() == carId)
                 orderId = order.getId();
         }
-
         orderRepository.findById(orderId).get().setState("CLOSE");
         orderRepository.findById(orderId).get().setEndTime(Long.toString(System.currentTimeMillis()));
+        orderRepository.saveAndFlush(orderRepository.findById(orderId).get());
         return orderRepository.findAll();
     }
 
